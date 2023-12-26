@@ -1,0 +1,102 @@
+\documentclass[
+  a4paper,            % DIN A4
+  DIV=10,             % Schriftgröße und Satzspiegel
+  oneside,            % einseitiger Druck
+  BCOR=5mm,           % BindungskorrekturS
+  parskip=half,       % Halber Abstand zwischen Absätzen
+  numbers=noenddot,   % Kein Punkt hinter Kapitelnummern
+  bibtotoc,           % Literaturverzeichnis im Inhaltsverzeichnis
+  listof=totoc        % Abbildungs- und Tabellenverzeichnis im Inhaltsverzeichnis
+]{scrreprt}
+\usepackage{../style/thesisstyle}
+\usepackage{fvextra}
+\usepackage{csquotes}
+\usepackage{url}
+\usepackage{tabto}
+%\usepackage{glossaries-extra}
+\usepackage{pdfpages}
+\usepackage{acronym}
+\usepackage{tabularx}
+\usepackage{minted}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{notoccite}
+\usepackage{array}
+\usepackage{enumitem}
+
+%\usepackage{glossaries}
+
+
+%\usepackage[outputdir=template$_$thesis/appendix/]{minted}
+\makeglossaries           % create all glossary entries (remember: run makeglossaries manually)
+
+\loadglsentries{thesisglossaries.tex}  % load acronym, symbol and glossary entries
+\sisetup{locale = DE}     % siunitx locale setup
+%\DeclareSIUnit \fps{fps}  % a custom unit (usage: \SI{24}{\fps})
+
+\begin{document}
+\input{configuration/configuration}    % load all settings
+
+\hyphenation{Ba-che-lor-the-sis Mas-ter-the-sis}
+
+% Cover page here, no page number
+\ICoverPage
+
+% PDF Metadata
+\input{../style/metadata}
+
+% Titlepage is page one even if the number is not shown.
+\pagenumbering{roman}
+% Title page here
+\input{../style/titlepage}
+
+% Abstract page here
+\input{../style/abstractpage}
+
+% Table of contents here
+\tableofcontents
+
+% List of figures here
+\IListOfFigures
+
+% List of tables here
+\IListOfTables
+% List of accronyms here
+\IListOfAccronyms
+\chapter*{Abkürzungsverzeichnis}
+\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+\markboth{Abkürzungsverzeichnis}{Abkürzungsverzeichnis}
+\begin{acronym}
+\end{acronym}
+% List of symbols here
+\IListOfSymbols
+
+% Uncomment if list of source code is needed (rarely).
+%\lstlistoflistings  % requires package listings, needs to uncommenting of usepackage
+
+% path to the chapters folder is set to find the images used there
+\graphicspath{ {./chapters/} }
+
+% Chapters
+\clearpage
+\pagenumbering{arabic}
+\input{thesis/chapters/introduction}
+% Add additional chapters here
+
+%\bibliographystyle{plain}
+%\bibliographystyle{dinat}
+%\bibliography{literature}
+\bibliography{references}
+%\bibliographystyle{unsrt}
+\bibliographystyle{unsrturl}
+
+% Appendix
+\appendix
+\input{appendix/appendix}
+
+\IGlossary
+
+\Istatement
+
+\end{document}
